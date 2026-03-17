@@ -30,7 +30,10 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        # package-lock.json は Alpine (musl) 環境で生成されているため
+        # Ubuntu (glibc) の Actions では rollup-linux-x64-gnu が欠落する。
+        # lock ファイルを削除して対象プラットフォーム向けに再インストールする。
+        run: rm -f package-lock.json && npm install
 
       - name: Build
         run: npm run build
