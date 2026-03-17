@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      target: development
+    ports:
+      - "5173:5173"
+    volumes:
+      # ソースコードをホストと同期（ホットリロードのトリガー）
+      - .:/app
+      # node_modules はコンテナ内のボリュームで管理し、ホスト側で上書きされないようにする
+      - node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      # Vite の HMR がコンテナ内ホスト名を正しく解決できるよう設定
+      - CHOKIDAR_USEPOLLING=true
+    # stdin / tty を有効にして Vite の終了シグナルを正常に受け取る
+    stdin_open: true
+    tty: true
+
+volumes:
+  node_modules:

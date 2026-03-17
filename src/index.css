@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* セレクタベースのダークモード: .dark クラスが html 要素にある場合に適用 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* スムーススクロール・固定ヘッダー分のスクロール位置オフセット */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem; /* 64px = h-16 */
+}
